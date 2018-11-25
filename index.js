@@ -102,6 +102,18 @@ function convert2e(newArray) {
         newArray.splice(targetIndex, 1);
     }
 
+    //DELETE DIFFICULTY CLASS
+    //deletes anything referencing DCs
+    while (ifExists("DC", newArray)) {
+        let targetLine = getStats("DC",  newArray);
+        let targetIndex = findLine("DC", newArray);
+        targetLine = targetLine.replace(/ *The save DC is *[\w|-]*\.* */g, " ") ////completely replaces save DC sentences with a space
+        targetLine = targetLine.replace(/ *\, *DC *\d* */g, ""); //completely deletes anything with format: ,DC 17
+        targetLine = targetLine.replace(/ *\(* *DC *\d* *\)* */g, ""); //completely deletes anything with format: (DC 17)
+        targetLine = targetLine.replace(/ *DC *\d* */g, " "); //completely replaces anything with format: DC 17; replaces with a single space
+        newArray[targetIndex] = targetLine;
+    }
+
 
 //STEP TWO: OPTIONAL DELETIONS
 
