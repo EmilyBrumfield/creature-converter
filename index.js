@@ -1,3 +1,5 @@
+//TODO: Fix processHitDice so it handles the urdefhan and other misformatted stats
+
 //This is a cleaner, more elegant, and less powerful alternate to my other stat block processor.
 //It replaces parts of the text input rather than completely rewriting it.
 //It has more tolerance for irregularities in stat blocks, but fewer options for formatting.
@@ -98,6 +100,27 @@ function convert2e(newArray) {
         newArray.splice(targetIndex, 1);
     }
 
+ 
+//STEP THREE: CONVERSIONS 
+
+if (ifExists("hp", newArray)) {
+    let targetIndex = findLine("hp", newArray);
+    let targetLine = getStats("hp", newArray)
+    
+    let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
+    let hitPoints = Math.floor(hitDice * 4.5); //figures out average hit points in 2e rules, rounds down
+
+    targetLine = "HD " + hitDice + " (" + hitPoints + " hp)"
+
+    newArray[targetIndex] = targetLine;
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
     return newArray;
 }
 
