@@ -277,6 +277,7 @@ function wordArrayCheck(textchunk, wordArray) { //goes through an array of strin
 
 function sanitize(rawText) { //removes fancy formatting like longdashes and such
     rawText = rawText.replace(/–/g, "-");
+    rawText = rawText.replace("×", "x");
     return rawText;
 }
 
@@ -425,7 +426,7 @@ function processAttack(rawText) {  //extracts attacks and damage
         rawTextFrontChunk = rawText.slice(0, cutOffPoint);
         rawTextBackChunk = rawText.slice(cutOffPoint);
         rawTextFrontChunk = clearModifiers(rawTextFrontChunk);
-        rawTextFrontChunk = rawTextFrontChunk.replace(/\/+/g, '(iterative)');  //turns interative attack slashes into the word "iterative"
+        rawTextFrontChunk = rawTextFrontChunk.replace(/\/+/g, "(iterative)");  //turns interative attack slashes into the word "iterative"
         rawText = rawTextFrontChunk + rawTextBackChunk;
 
         //grab everything up to the first ), add it to the processed string, delete it from the rawText
@@ -435,6 +436,9 @@ function processAttack(rawText) {  //extracts attacks and damage
 
     } while ( conjunctions.test(rawText) ) //keeps running as long as there's "and" or "or" in the string, indicating remaining unprocessed attacks
 
+    processedChunk = processedChunk.replace(/, *\d*-\d*\/x\d*/g, ""); //get rid of critical hit ranges with multipliers
+    processedChunk = processedChunk.replace(/\/\d*-\d*/g, ""); //get rid of critical hit ranges without multipliers
+    processedChunk = processedChunk.replace(/\/x\d*/g, ""); //get rid of critical hit multipliers without ranges
     processedChunk = processedChunk.replace(/  +/g, ' ');  //get rid of extra whitespace
     
     return processedChunk;
