@@ -11,7 +11,7 @@
 
 const inputBox = "input-box";  //the name of the input textarea; paste a monster here from a compatible source
 const outputBox = "output-box";  //the name of the output textarea
-const deleteAbilities = false; //determines whether convert2e will delete ability scores
+const deleteAbilities = true; //determines whether convert2e will delete ability scores
 const armorHalf = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
 
 //----STRING FUNCTIONS
@@ -80,6 +80,14 @@ function convert2e(newArray) {
     if (ifExists("CMB", newArray)) {
         let targetIndex = findLine("CMB", newArray);
         newArray.splice(targetIndex, 1);
+    }
+
+    //DELETE CONCENTRATION MODIFIER
+    if (ifExists("concentration", newArray)) {
+        let targetLine = getStats("concentration",  newArray);
+        let targetIndex = findLine("concentration", newArray);
+        targetLine = targetLine.replace(/ *;* *concentration *[+-]\d* *;* */g, "");
+        newArray[targetIndex] = targetLine;
     }
 
     //DELETE FEAT LINE ENTIRELY
