@@ -115,6 +115,25 @@ if (ifExists("hp", newArray)) {
     newArray[targetIndex] = targetLine;
 }
 
+if (ifExists("Melee", newArray)) {
+    let targetIndex = findLine("Melee", newArray);
+    let targetLine = getStats("Melee", newArray)
+    
+    targetLine = processAttack(targetLine); //changes the line to fit a different standard
+
+    newArray[targetIndex] = targetLine;
+}
+
+if (ifExists("Ranged", newArray)) {
+    let targetIndex = findLine("Ranged", newArray);
+    let targetLine = getStats("Ranged", newArray)
+    
+    targetLine = processAttack(targetLine); //changes the line to fit a different standard
+
+    newArray[targetIndex] = targetLine;
+}
+
+
  
  
  
@@ -362,14 +381,8 @@ function processAttack(rawText) {  //extracts attacks and damage
     let rawTextBackChunk = "";
     let processedChunk = "";
     let conjunctions = /and|or|,/; //covers the myriad ways some writer might use to separate attacks
-    
-    rawText = sanitize(rawText);
 
-    //cut off the Melee or Ranged tag; it always comes before the first space
-    cutOffPoint = rawText.indexOf(" "); 
-    rawText = rawText.slice(cutOffPoint+1);
-
-    //do while means that this keeps running until all attacks have been processed
+     //do while means that this keeps running until all attacks have been processed
     do {
 
         //grab everything up to the first (, remove modifiers, note iterative attacks, put it back together
