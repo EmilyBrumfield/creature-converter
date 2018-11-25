@@ -122,7 +122,10 @@ if (ifExists("hp", newArray)) {
     let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
     let hitPoints = Math.floor(hitDice * 4.5); //figures out average hit points in 2e rules, rounds down
 
-    targetLine = "HD " + hitDice + " (" + hitPoints + " hp)"
+    let newText = "HD " + hitDice + " (" + hitPoints + " hp)";
+
+    let backText = targetLine.slice(targetLine.indexOf(")") + 1);
+    targetLine = newText + backText;
 
     newArray[targetIndex] = targetLine;
 }
