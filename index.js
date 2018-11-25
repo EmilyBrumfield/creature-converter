@@ -7,6 +7,7 @@
 
 const inputBox = "input-box";  //the name of the input textarea; paste a monster here from a compatible source
 const outputBox = "output-box";  //the name of the output textarea
+const deleteAbilities = false; //determines whether convert2e will delete ability scores
 const armorHalf = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
 
 //----STRING FUNCTIONS
@@ -26,7 +27,7 @@ function convert2e(newArray) {
     //takes a string array, converts stats from Pathfinder to AD&D 2e rules, returns the result
     //most of this is simple RegExp-based deletion of unnecessary stats, but there's some conversions as well
 
-    //Step One: Remove unnecessary text
+    //STEP ONE: Remove unnecessary text
     //currently repeating myself; will use functions later
 
     //DELETE CHALLENGE RATING
@@ -59,6 +60,12 @@ function convert2e(newArray) {
         newArray[targetIndex] = targetLine;
     }
 
+    //DELETE SAVES LINE ENTIRELY
+    if (ifExists("Ref", newArray)) {
+        let targetIndex = findLine("Ref", newArray);
+        newArray.splice(targetIndex, 1);
+    }
+
     //DELETE SPACE/REACH LINE ENTIRELY
     if (ifExists("Reach", newArray)) {
         let targetIndex = findLine("Reach", newArray);
@@ -84,8 +91,12 @@ function convert2e(newArray) {
     }
 
 
+//STEP TWO: OPTIONAL DELETIONS
 
-
+    if (ifExists("Wis", newArray) && deleteAbilities === true) {
+        let targetIndex = findLine("Wis", newArray);
+        newArray.splice(targetIndex, 1);
+    }
 
     return newArray;
 }
