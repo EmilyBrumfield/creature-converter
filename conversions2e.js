@@ -31,7 +31,8 @@ function convert2eTHAC0(HitDice) {  //calculates THAC0 according to standard rul
 
 //---MAIN CONVERSION FUNCTION---
 
-function convert2e(newArray) {
+function convert2e(newArray, edition) {
+    //edition should be "2e" or "5e"
     //takes a string array, converts stats from Pathfinder to AD&D 2e rules, returns the result
     //most of this is simple RegExp-based deletion of unnecessary stats, but there's some conversions as well
 
@@ -120,23 +121,63 @@ function convert2e(newArray) {
 
 
 //STEP TWO: OPTIONAL DELETIONS
+//deletes ability scores from 2e stat blocks if deleteAbilities is true
+//never deletes them from 5e stat blocks
 
-    if (ifExists("Wis", newArray) && deleteAbilities === true) {
+    if (ifExists("Wis", newArray) && deleteAbilities === true && edition === "2e") {
         let targetIndex = findLine("Wis", newArray);
         newArray.splice(targetIndex, 1);
     }
 
- 
-    //STEP THREE: CONVERSIONS 
+     //STEP THREE: CONVERSIONS 
 
     if (ifExists("AC", newArray)) {
         let targetIndex = findLine("AC", newArray);
         let targetLine = getStats("AC", newArray)
         
-        let Armor = processAC(targetLine); //grabs hit dice as an integer
+        let Armor = processAC(targetLine); //grabs AC as an object
 
-        targetLine = "AC " + convert2eAC(Armor.AC);
+        if (edition === "2e") {
+            targetLine = "AC " + convert2eAC(Armor.AC);
+        }
+        else
+        {
+            let AC5e = (19 - convert2eAC(Armor.AC));
+            if (AC5e > 22) {
+                AC5e = 22;
+            }
+    
+            targetLine = "AC " + AC5e;
+        }
+
         newArray[targetIndex] = targetLine;
+    }
+
+    //add attack modifier before changing the hit dice line
+    if (edition === "2e") {
+        if (ifExists("Speed", newArray) && ifExists("hp", newArray)) {
+            let targetIndex = findLine("Speed", newArray);
+            targetIndex += 1; //increments by one so this will go after the Speed line
+            let targetLine = getStats("hp", newArray)
+            let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
+            let newLine = "THAC0 " + convert2eTHAC0(hitDice);;
+            newArray.splice(targetIndex, 0, newLine);
+        }
+    }
+    
+    else if (edition === "5e") {
+        if (ifExists("Speed", newArray) && ifExists("hp", newArray)) {
+            let targetIndex = findLine("Speed", newArray);
+            targetIndex += 1; //increments by one so this will go after the Speed line
+            let targetLine = getStats("hp", newArray)
+            let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
+            let attackModifier = Math.floor(hitDice / 2) + 2;
+            if (attackModifier > 12) {
+                attackModifier = 12;
+            }
+            let newLine = "Attack Modifier +" + attackModifier;
+            newArray.splice(targetIndex, 0, newLine);
+        }
     }
 
     if (ifExists("hp", newArray)) {
@@ -144,9 +185,18 @@ function convert2e(newArray) {
         let targetLine = getStats("hp", newArray)
         
         let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
-        let hitPoints = Math.floor(hitDice * 4.5); //figures out average hit points in 2e rules, rounds down
+        let hitPoints = 0;
+        let newText = "";
 
-        let newText = "HD " + hitDice + " (" + hitPoints + " hp)";
+        if (edition === "2e") {
+            hitPoints = Math.floor(hitDice * 4.5); //figures out average hit points in 2e rules, rounds down
+            newText = "HD " + hitDice + " (" + hitPoints + " hp)";
+        }
+        else {
+            hitPoints = Math.floor(hitDice * 9); //figures out average hit points in 2e rules, doubles
+            newText = "Hit Points " + hitPoints + " (" + hitDice + "d8+" + Math.floor(hitDice*4.5) + ")";
+        }
+
 
         let backText = targetLine.slice(targetLine.indexOf(")") + 1);
         targetLine = newText + backText;

@@ -143,4 +143,3 @@ function processHitDice(rawText) {  //extracts Hit Dice; nothing else is needed
     
     return rawText; //returns a single integer because hit dice are simple
 }
-

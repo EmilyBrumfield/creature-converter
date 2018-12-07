@@ -1,4 +1,5 @@
 //TODO:
+// Make the code do something when there's no stat block
 // Make the code less messy
 // Fix processHitDice so it handles the urdefhan and other misformatted stats
 // Fix processAttack so that it can do actual mathematic conversions
@@ -23,7 +24,7 @@ function test2e() {
     //splitting the text into an array makes it much easier to work with
 
     let newArray = splitText(inputBox);
-    newArray = convert2e(newArray);
+    newArray = convert2e(newArray, "2e");
 
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
 }
@@ -33,10 +34,11 @@ function test5e() {
     //splitting the text into an array makes it much easier to work with
 
     let newArray = splitText(inputBox);
-    newArray = convert5e(newArray);
+    newArray = convert2e(newArray, "5e");
 
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
 }
+
 
 function addFireGiant() {
 
