@@ -10,16 +10,16 @@ function ifExists(searchWord, targetArray) {
 }
 
 function splitText() {
-    //gets the text from inputBox, fixes special characters like funky dashes and such, and splits it into an array
-    let textchunk = document.getElementById(inputBox).value;
+    //gets the text from INPUTBOX, fixes special characters like funky dashes and such, and splits it into an array
+    let textchunk = document.getElementById(INPUTBOX).value;
     textchunk = sanitize(textchunk);
     return textchunk.split("\n");
 }
 
 function mergeText(targetArray) {
-    //merges the text from an array and puts it into outputBox
+    //merges the text from an array and puts it into OUTPUTBOX
     let textchunk = targetArray.join("\n");
-    document.getElementById(outputBox).value = textchunk
+    document.getElementById(OUTPUTBOX).value = textchunk
 }
 
 function wholeWord(word) { //placeholder

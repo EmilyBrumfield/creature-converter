@@ -4,8 +4,8 @@
 
 
 function convert2eAC(AC) {  //reduces really high AC, converts to 2e descending AC
-    if (AC > armorHalf) { //if AC is higher than the armorHalf constant, halve anything above it and round down; armorHalf is normally 17
-      AC = Math.floor((AC-armorHalf)/2) + armorHalf;
+    if (AC > ARMORHALF) { //if AC is higher than the ARMORHALF constant, halve anything above it and round down; ARMORHALF is normally 17
+      AC = Math.floor((AC-ARMORHALF)/2) + ARMORHALF;
     }
     AC = 20 - AC;
     return AC;
@@ -121,10 +121,10 @@ function convert2e(newArray, edition) {
 
 
 //STEP TWO: OPTIONAL DELETIONS
-//deletes ability scores from 2e stat blocks if deleteAbilities is true
+//deletes ability scores from 2e stat blocks if DELETEABILITIES is true
 //never deletes them from 5e stat blocks
 
-    if (ifExists("Wis", newArray) && deleteAbilities === true && edition === "2e") {
+    if (ifExists("Wis", newArray) && DELETEABILITIES === true && edition === "2e") {
         let targetIndex = findLine("Wis", newArray);
         newArray.splice(targetIndex, 1);
     }
@@ -160,7 +160,7 @@ function convert2e(newArray, edition) {
 
         newArray.splice(targetIndex, 0, newLine);
 
-        if (deleteAbilities === true) {
+        if (DELETEABILITIES === true) {
             targetIndex = findLine("Wis", newArray);
             newArray.splice(targetIndex, 1);
         }
@@ -181,8 +181,8 @@ function convert2e(newArray, edition) {
         else
         {
             let AC5e = (19 - convert2eAC(Armor.AC));
-            if (AC5e > armorMax5e) {
-                AC5e = armorMax5e;
+            if (AC5e > ARMORMAX5E) {
+                AC5e = ARMORMAX5E;
             }
     
             targetLine = "AC " + AC5e;
@@ -210,8 +210,8 @@ function convert2e(newArray, edition) {
             let targetLine = getStats("hp", newArray)
             let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
             let attackModifier = Math.floor(hitDice / 2) + 2;
-            if (attackModifier > attackMax5e) {
-                attackModifier = attackMax5e;
+            if (attackModifier > ATTACKMAX5E) {
+                attackModifier = ATTACKMAX5E;
             }
             let newLine = "Attack Modifier +" + attackModifier;
             newArray.splice(targetIndex, 0, newLine);

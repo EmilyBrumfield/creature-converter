@@ -11,12 +11,12 @@
 //Currently split into multiple scripts for ease of use; will eventually combine them with webpack or some other method
 
 
-const inputBox = "input-box";  //the name of the input textarea; paste a monster here from a compatible source
-const outputBox = "output-box";  //the name of the output textarea
-const deleteAbilities = true; //determines whether convert2e will delete ability scores
-const armorHalf = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
-const attackMax5e = 12;
-const armorMax5e = 22;
+const INPUTBOX = "input-box";  //the name of the input textarea; paste a monster here from a compatible source
+const OUTPUTBOX = "output-box";  //the name of the output textarea
+const DELETEABILITIES = true; //determines whether convert2e will delete ability scores
+const ARMORHALF = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
+const ATTACKMAX5E = 12;
+const ARMORMAX5E = 22;
 
 //----STRING FUNCTIONS
 //----Various functions to get text from the input, split it up into arrays, search it for particular information
@@ -25,7 +25,7 @@ function test2e() {
     //creates newArray by grabbing text from the input textarea and splitting it
     //splitting the text into an array makes it much easier to work with
 
-    let newArray = splitText(inputBox);
+    let newArray = splitText(INPUTBOX);
     newArray = convert2e(newArray, "2e");
 
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
@@ -35,7 +35,7 @@ function test5e() {
     //creates newArray by grabbing text from the input textarea and splitting it
     //splitting the text into an array makes it much easier to work with
 
-    let newArray = splitText(inputBox);
+    let newArray = splitText(INPUTBOX);
     newArray = convert2e(newArray, "5e");
 
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
@@ -82,5 +82,5 @@ Heated Rock (Su)\n\
 Fire giants transfer the heat of their bodies to rocks as part of an attack action when they throw rocks. A heated rock deals 1d6 points of additional fire damage on a hit.\n\
 "
 
-    document.getElementById(inputBox).value = fireGiantString;
+    document.getElementById(INPUTBOX).value = fireGiantString;
 }
