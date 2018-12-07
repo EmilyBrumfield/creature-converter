@@ -15,6 +15,8 @@ const inputBox = "input-box";  //the name of the input textarea; paste a monster
 const outputBox = "output-box";  //the name of the output textarea
 const deleteAbilities = true; //determines whether convert2e will delete ability scores
 const armorHalf = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
+const attackMax5e = 12;
+const armorMax5e = 22;
 
 //----STRING FUNCTIONS
 //----Various functions to get text from the input, split it up into arrays, search it for particular information

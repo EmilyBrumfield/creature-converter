@@ -181,8 +181,8 @@ function convert2e(newArray, edition) {
         else
         {
             let AC5e = (19 - convert2eAC(Armor.AC));
-            if (AC5e > 22) {
-                AC5e = 22;
+            if (AC5e > armorMax5e) {
+                AC5e = armorMax5e;
             }
     
             targetLine = "AC " + AC5e;
@@ -210,8 +210,8 @@ function convert2e(newArray, edition) {
             let targetLine = getStats("hp", newArray)
             let hitDice = processHitDice(targetLine); //grabs hit dice as an integer
             let attackModifier = Math.floor(hitDice / 2) + 2;
-            if (attackModifier > 12) {
-                attackModifier = 12;
+            if (attackModifier > attackMax5e) {
+                attackModifier = attackMax5e;
             }
             let newLine = "Attack Modifier +" + attackModifier;
             newArray.splice(targetIndex, 0, newLine);
