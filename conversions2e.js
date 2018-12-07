@@ -129,6 +129,44 @@ function convert2e(newArray, edition) {
         newArray.splice(targetIndex, 1);
     }
 
+    if (ifExists("Wis", newArray) && edition === "5e") {
+        //if there's ability scores, get the modifiers from them and replace the explanation text above
+        let targetLine = getStats("Wis", newArray);
+        let abilityModifiers = getAbilityModifiers(processAbilities(targetLine));
+
+        let targetIndex = findLine("Wis", newArray);
+        targetIndex += 1;
+
+        function showSymbol(abilityModifier) {
+            let abilityModifierString = "";
+            if (abilityModifier > -1) {
+                abilityModifierString = "+" + abilityModifier;
+            }
+            else {
+                abilityModifierString = abilityModifier;
+            }
+
+            return abilityModifierString;
+        }
+
+        let newLine = "";
+        newLine += "Str (" + showSymbol(abilityModifiers.strength) + "), ";
+        newLine += "Dex (" + showSymbol(abilityModifiers.dexterity) + "), ";
+        newLine += "Con (" + showSymbol(abilityModifiers.constitution) + "), ";
+        newLine += "Int (" + showSymbol(abilityModifiers.intelligence) + "), ";
+        newLine += "Wis (" + showSymbol(abilityModifiers.wisdom) + "), ";
+        newLine += "Cha (" + showSymbol(abilityModifiers.charisma) + ")";
+
+
+        newArray.splice(targetIndex, 0, newLine);
+
+        if (deleteAbilities === true) {
+            targetIndex = findLine("Wis", newArray);
+            newArray.splice(targetIndex, 1);
+        }
+    }
+
+
      //STEP THREE: CONVERSIONS 
 
     if (ifExists("AC", newArray)) {

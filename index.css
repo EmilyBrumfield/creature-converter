@@ -3,10 +3,6 @@
     flex-flow: row nowrap;
 }
 
-.inputs {
-    /*shut up, VSC*/
-}
-
 .inputs__button {
     height: 5vmin;
     width: 20vmin;
@@ -15,10 +11,6 @@
 .inputs__textarea {
     height: 80vmin;
     width: 80vmin; 
-}
-
-.outputs {
-    /*shut up, VSC*/
 }
 
 .outputs__textarea {
