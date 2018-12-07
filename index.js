@@ -14,6 +14,7 @@
 const INPUTBOX = "input-box";  //the name of the input textarea; paste a monster here from a compatible source
 const OUTPUTBOX = "output-box";  //the name of the output textarea
 const DELETEABILITIES = true; //determines whether convert2e will delete ability scores
+const DELETEHEADINGS = false; //determines whether convert2e will delete blank lines and section headings
 const ARMORHALF = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
 const ATTACKMAX5E = 12;
 const ARMORMAX5E = 22;

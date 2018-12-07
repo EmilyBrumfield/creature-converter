@@ -124,6 +124,21 @@ function convert2e(newArray, edition) {
 //deletes ability scores from 2e stat blocks if DELETEABILITIES is true
 //never deletes them from 5e stat blocks
 
+    if (DELETEHEADINGS === true) {
+        for (let i = 0; i < newArray.length; i += 1) {
+            
+            if (newArray[i] === "") {
+                newArray.splice(i, 1);
+            }
+        }
+
+        for (let i = 0; i < newArray.length; i += 1) {
+            if (newArray[i] === "DEFENSE" || newArray[i] === "OFFENSE" || newArray[i] === "STATISTICS" || newArray[i] === "SPECIAL ABILITIES") {
+                newArray[i] = "";
+            }
+        }
+    }
+
     if (ifExists("Wis", newArray) && DELETEABILITIES === true && edition === "2e") {
         let targetIndex = findLine("Wis", newArray);
         newArray.splice(targetIndex, 1);
@@ -213,7 +228,7 @@ function convert2e(newArray, edition) {
             if (attackModifier > ATTACKMAX5E) {
                 attackModifier = ATTACKMAX5E;
             }
-            let newLine = "Attack Modifier +" + attackModifier;
+            let newLine = "Attack +" + attackModifier;
             newArray.splice(targetIndex, 0, newLine);
         }
     }
