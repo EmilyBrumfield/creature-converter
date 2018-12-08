@@ -18,6 +18,7 @@ const DELETEHEADINGS = false; //determines whether convert2e will delete blank l
 const ARMORHALF = 17; //any Armor Class points over this amount are halved and rounded down; used for converting AC from PF/3e to 2e
 const ATTACKMAX5E = 12;
 const ARMORMAX5E = 22;
+const CONVERSIONDIESIZE = 10; //the default die size when converting an average result to dice notation
 
 //----STRING FUNCTIONS
 //----Various functions to get text from the input, split it up into arrays, search it for particular information
@@ -40,7 +41,7 @@ function test5e() {
     newArray = convert2e(newArray, "5e");
     makeDice(0.5);
     makeDice(1);
-    makeDice(1.2);
+    makeDice(4.5);
     makeDice(1.7);
     makeDice(2.5);
     makeDice(2.0);

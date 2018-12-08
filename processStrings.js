@@ -189,7 +189,7 @@ function makeDice(averageResult) { //takes an average result, makes up a die val
 
     let diceString = "";
     let diceNumber = 0;
-    let diceSize = 8;
+    let diceSize = CONVERSIONDIESIZE;
     let diceModifier = 0;
     let averagePerDie = (diceSize/2 + 0.5);
     diceString = "";
@@ -198,7 +198,7 @@ function makeDice(averageResult) { //takes an average result, makes up a die val
         diceString = "1d1";
     }
 
-    else if (averageResult > 1 && averageResult < 3) {
+    else if (averageResult > 1 && averageResult < 7 && averageResult < averagePerDie) {
         if (averageResult > 1 && averageResult < 2) {
             diceString = "1d2";
         }
@@ -208,6 +208,19 @@ function makeDice(averageResult) { //takes an average result, makes up a die val
         else if (averageResult >= 2.5 && averageResult < 3) {
             diceString = "1d4";
         }
+        else if (averageResult >= 3 && averageResult < 4) {
+            diceString = "1d6";
+        }
+        else if (averageResult >= 4 && averageResult < 5) {
+            diceString = "1d8";
+        }
+        else if (averageResult >= 5 && averageResult < 6) {
+            diceString = "1d10";
+        }
+        else if (averageResult >= 6 && averageResult < 7) {
+            diceString = "1d12";
+        }
+
     }
 
     else if (averageResult > 1 && averageResult < averagePerDie) {
@@ -237,4 +250,6 @@ function makeDice(averageResult) { //takes an average result, makes up a die val
             diceString = diceNumber + "d" + diceSize + "+" + diceModifier;
         }
     }
+
+    console.log(averageResult + " is " + diceString)
 }
