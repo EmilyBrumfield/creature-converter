@@ -38,9 +38,17 @@ function test5e() {
 
     let newArray = splitText(INPUTBOX);
     newArray = convert2e(newArray, "5e");
-    diceAverage("3d6+15");
-    diceAverage("1d3-3");
-
+    makeDice(0.5);
+    makeDice(1);
+    makeDice(1.2);
+    makeDice(1.7);
+    makeDice(2.5);
+    makeDice(2.0);
+    makeDice(3.5);
+    makeDice(5);
+    makeDice(10.5);
+    makeDice(14);
+    makeDice(18);
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
 }
 

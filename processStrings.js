@@ -180,7 +180,61 @@ function diceAverage(diceString) {  //need a string with standard RPG dice notat
         //do nothing? It isn't a die notation
     }
 
-    let dieAverage = diceNumber * (diceSize/2 + 0.5) + diceModifier;
+    let averageResult = diceNumber * (diceSize/2 + 0.5) + diceModifier;
 
-    return dieAverage;
+    return averageResult;
+}
+
+function makeDice(averageResult) { //takes an average result, makes up a die value
+
+    let diceString = "";
+    let diceNumber = 0;
+    let diceSize = 8;
+    let diceModifier = 0;
+    let averagePerDie = (diceSize/2 + 0.5);
+    diceString = "";
+    
+    if (averageResult <= 1) {
+        diceString = "1d1";
+    }
+
+    else if (averageResult > 1 && averageResult < 3) {
+        if (averageResult > 1 && averageResult < 2) {
+            diceString = "1d2";
+        }
+        else if (averageResult >= 2 && averageResult < 2.5) {
+            diceString = "1d3";
+        }
+        else if (averageResult >= 2.5 && averageResult < 3) {
+            diceString = "1d4";
+        }
+    }
+
+    else if (averageResult > 1 && averageResult < averagePerDie) {
+
+        diceNumber = 1;
+        diceModifier = (averageResult % averagePerDie);
+        diceModifier -= averagePerDie;
+        diceModifier = Math.ceil(diceModifier);
+        
+        diceString = diceNumber + "d" + diceSize;
+        if (diceModifier < 0) {
+            diceString = diceNumber + "d" + diceSize + diceModifier;
+        }
+        else if (diceModifier > 0) {
+            diceString = diceNumber + "d" + diceSize + "+" + diceModifier;
+        }
+    }
+
+    else if (averageResult > 1 && averageResult >= averagePerDie) {
+        diceNumber = Math.floor(averageResult / averagePerDie);
+        diceModifier = Math.ceil(averageResult % averagePerDie);
+        diceString = diceNumber + "d" + diceSize;
+        if (diceModifier < 0) {
+            diceString = diceNumber + "d" + diceSize + diceModifier;
+        }
+        else if (diceModifier > 0) {
+            diceString = diceNumber + "d" + diceSize + "+" + diceModifier;
+        }
+    }
 }
