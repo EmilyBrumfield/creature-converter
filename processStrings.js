@@ -143,3 +143,44 @@ function processHitDice(rawText) {  //extracts Hit Dice; nothing else is needed
     
     return rawText; //returns a single integer because hit dice are simple
 }
+
+function diceAverage(diceString) {  //need a string with standard RPG dice notation, like 2d6+3 or 1d4 or 1d20-4
+    //returns the average result
+
+    let cutOffPoint = diceString.indexOf("d");
+    let modifierString = "";
+    let diceNumber = 0;
+    let diceSize = 0;
+    let diceModifier = 0;
+
+    if (cutOffPoint > -1) {
+        diceNumber = diceString.slice(0, cutOffPoint);
+        diceNumber = parseInt(diceNumber, 10);
+        diceString = diceString.slice(cutOffPoint+1);
+
+        cutOffPoint = diceString.indexOf("-");
+        if (cutOffPoint > -1) {  //if there's a negative modifier in the remainder
+            cutOffPoint = diceString.indexOf("-") + 1;
+            modifierString = diceString.slice(cutOffPoint);
+            diceModifier = 0 - (parseInt(modifierString, 10));
+        }
+
+        cutOffPoint = diceString.indexOf("+");
+        if (cutOffPoint > -1) {  //if there's a positive modifier in the remainder
+            cutOffPoint = diceString.indexOf("+") + 1;
+            modifierString = diceString.slice(cutOffPoint);
+            diceModifier = parseInt(modifierString, 10);
+        }
+
+
+        diceSize = parseInt(diceString, 10);
+    }
+
+    else {
+        //do nothing? It isn't a die notation
+    }
+
+    let dieAverage = diceNumber * (diceSize/2 + 0.5) + diceModifier;
+
+    return dieAverage;
+}
