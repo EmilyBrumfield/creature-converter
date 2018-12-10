@@ -97,6 +97,7 @@ function wordArrayCheck(textchunk, wordArray) { //goes through an array of strin
 
 function sanitize(rawText) { //removes fancy formatting like longdashes and such
     rawText = rawText.replace(/–/g, "-");
+    rawText = rawText.replace(/—/g, "--");
     rawText = rawText.replace("×", "x");
     return rawText;
 }

@@ -53,6 +53,17 @@ function test5e() {
     mergeText(newArray); //joins the array back into a string and sends the results to the output textarea
 }
 
+function testModern() {
+    //creates newArray by grabbing text from the input textarea and splitting it
+    //splitting the text into an array makes it much easier to work with
+
+    let newString = document.getElementById(INPUTBOX).value;
+    newString = convertModern(newString, "2e");
+
+    document.getElementById(OUTPUTBOX).value = newString;
+}
+
+
 
 function addFireGiant() {
 
@@ -95,4 +106,19 @@ Fire giants transfer the heat of their bodies to rocks as part of an attack acti
 "
 
     document.getElementById(INPUTBOX).value = fireGiantString;
+}
+
+function addAshWraith() {
+
+let ashWraithString = "Ash Wraith: CR 6; Medium undead; HD 6d12; hp 39; Mas —; Init +7 (+3 Dex, +4 Improved Initiative); Spd 30 ft., fly 60 ft. (good); Defense 15, touch 15, flat-footed 12 (+3 Dex, +2 deflection); BAB +3; Grap +3; Atk +6 melee (3d6 fire, burning touch); Full Atk +6 melee (3d6 fire, burning touch); FS 5 ft. by 5 ft.; Reach 5 ft.; SQ undead, incorporeal, burning touch, spawn, unnatural aura, fear of daylight; AL evil; SV Fort +2, Ref +5, Will +7; AP 0; Rep +0; Str —, Dex 16, Con —, Int 14, Wis 14, Cha 15.\n\
+Skills: Hide +12, Intimidate +11, Listen +13, Read/Write\n\
+Language (up to any three), Search +9, Sense Motive +11,\n\
+Speak Language (up to any three), Spot +13.\n\
+Feats: Alertness, Blind-Fight, Combat Reflexes, Improved\n\
+Initiative.\n\
+Possessions: None.\n\
+Advancement: 7–12 HD (Medium).\n\
+"
+
+    document.getElementById(INPUTBOX).value = ashWraithString;
 }
